@@ -68,15 +68,14 @@
     "vue": "^3.4.0"
   },
   "dependencies": {
-    "@storybook/components": "^9.0.9",
-    "@storybook/core-events": "^9.0.9",
-    "@storybook/manager-api": "^9.0.9",
-    "@storybook/theming": "^9.0.9",
-    "@storybook/types": "^9.0.9",
-    "@fremux/storybook-vue-nuxt": "workspace:*",
-    "json-schema-to-typescript": "^13.1.1",
-    "lodash-es": "^4.17.21",
-    "vue-dnd-kit": "^0.2.0"
+    "@storybook/addon-essentials": "9.0.0-alpha.12",
+    "@storybook/components": "9.0.0-alpha.1",
+    "@storybook/core-events": "9.0.0-alpha.1",
+    "@storybook/manager-api": "9.0.0-alpha.1",
+    "@storybook/types": "9.0.0-alpha.1",
+    "@storybook/vue3": "^9.0.9",
+    "@vue-dnd-kit/core": "^1.5.1",
+    "@xstorybook/vue-nuxt-preset": "workspace:*"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",

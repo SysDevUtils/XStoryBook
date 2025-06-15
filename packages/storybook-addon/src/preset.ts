@@ -24,6 +24,7 @@ import nuxtRuntimeConfigPlugin from './runtimeConfig'
 
 const packageDir = resolve(fileURLToPath(import.meta.url), '../..')
 const distDir = resolve(fileURLToPath(import.meta.url), '../..', 'dist')
+const fremuxProjectRoot = resolve(packageDir, '../../../..'); // Path to /home/linux_user/fremux
 
 const dirs = [distDir, packageDir, pluginsDir, componentsDir]
 
@@ -82,8 +83,12 @@ async function loadNuxtViteConfig(root: string | undefined) {
       })
     })
   }
+
+  // Ensure we use the correct Fremux project root for CWD
+  const effectiveRoot = fremuxProjectRoot;
+
   nuxt = await loadNuxt({
-    cwd: root,
+    cwd: effectiveRoot, // Use the explicitly defined Fremux project root
     ready: false,
     dev: false,
     overrides: {
@@ -182,6 +187,9 @@ function mergeViteConfig(
     'storybook > @storybook/core > jsdoc-type-pratt-parser',
   )
 
+  // Determine the Fremux workspace root explicitly
+  const fremuxWorkspaceRoot = resolve(packageDir, '../../../../'); // Adjust based on actual structure if XStoryBook is deeper
+
   return mergeConfig(extendedConfig, {
     // build: { rollupOptions: { external: ['vue', 'vue-demi'] } },
     define: {
@@ -204,7 +212,7 @@ function mergeViteConfig(
         ...getPreviewProxy(),
         ...getNuxtProxyConfig(nuxt).proxy,
       },
-      fs: { allow: [searchForWorkspaceRoot(process.cwd()), ...dirs] },
+      fs: { allow: [fremuxWorkspaceRoot, ...dirs] }, // Use the explicit Fremux workspace root
     },
     envPrefix: ['NUXT_'],
   })
