@@ -61,11 +61,7 @@ This repository is licensed under the [MIT License](LICENSE). Feel free to use t
 
 ## Contacts :
 
-🔖 Mail: javachakir@gmail.com
-
-💬 Discord: ChakAs3
-
-🐦‍⬛ Twitter: [@ChakirQatab](https://twitter.com/ChakirQatab)
+🔖 Mail: contact@fremux.com
 
 ## Sponsors
 
