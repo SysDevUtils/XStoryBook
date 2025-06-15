@@ -150,22 +150,15 @@ function mergeViteConfig(
 ): ViteConfig {
   const extendedConfig: ViteConfig = mergeConfig(nuxtConfig, storybookConfig)
 
-  const plugins = extendedConfig.plugins || []
+  // Remove all existing 'vite:vue' plugins
+  let plugins = (extendedConfig.plugins || []).filter(
+    (plugin) => !(plugin && typeof plugin === 'object' && 'name' in plugin && plugin.name === 'vite:vue')
+  );
 
-  // Find the index of the plugin with name 'vite:vue'
-  const index = plugins.findIndex(
-    (plugin) => plugin && 'name' in plugin && plugin.name === 'vite:vue',
-  )
-
-  // Check if the plugin was found
-  if (index !== -1) {
-    // Replace the plugin with the new one using vuePlugin()
-    plugins[index] = vuePlugin()
-  } else {
-    // Vue plugin should be the first registered user plugin so that it will be added directly after Vite's core plugins
-    // and transforms global vue components before nuxt:components:imports.
-    plugins.unshift(vuePlugin())
-  }
+  // Add the desired vuePlugin() at the beginning
+  // Vue plugin should be the first registered user plugin so that it will be added directly after Vite's core plugins
+  // and transforms global vue components before nuxt:components:imports.
+  plugins.unshift(vuePlugin());
 
   extendedConfig.plugins = plugins
 
@@ -183,8 +176,6 @@ function mergeViteConfig(
     // Add lodash/kebabCase, since it is still a cjs module
     // Imported in https://github.com/storybookjs/storybook/blob/480359d5e340d97476131781c69b4b5e3b724f57/code/renderers/vue3/src/docs/sourceDecorator.ts#L18
     '@nuxtjs/storybook > @storybook-vue/nuxt > @storybook/vue3 > lodash/kebabCase',
-    // Workaround for https://github.com/nuxt-modules/storybook/issues/776
-    'storybook > @storybook/core > jsdoc-type-pratt-parser',
   )
 
   // Determine the Fremux workspace root explicitly
