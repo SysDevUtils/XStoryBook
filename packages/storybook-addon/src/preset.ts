@@ -24,7 +24,6 @@ import nuxtRuntimeConfigPlugin from './runtimeConfig'
 
 const packageDir = resolve(fileURLToPath(import.meta.url), '../..')
 const distDir = resolve(fileURLToPath(import.meta.url), '../..', 'dist')
-const fremuxProjectRoot = resolve(packageDir, '../../../..'); // Path to /home/linux_user/fremux
 
 const dirs = [distDir, packageDir, pluginsDir, componentsDir]
 
@@ -61,7 +60,7 @@ async function extendComposables(nuxt: Nuxt) {
   })
 }
 
-async function loadNuxtViteConfig(root: string | undefined) {
+async function loadNuxtViteConfig(projectRootPath: string | undefined) {
   const { loadNuxt, tryUseNuxt, buildNuxt, extendPages } = await import(
     '@nuxt/kit'
   )
@@ -84,11 +83,16 @@ async function loadNuxtViteConfig(root: string | undefined) {
     })
   }
 
-  // Ensure we use the correct Fremux project root for CWD
-  const effectiveRoot = fremuxProjectRoot;
+  // Ensure we use the correct project root for CWD
+  const effectiveRoot = projectRootPath || searchForWorkspaceRoot(process.cwd());
+  if (!effectiveRoot) {
+    throw new Error("[Storybook Addon] Could not determine project root for Nuxt.");
+  }
+  console.log(`[Storybook Addon] Using CWD for Nuxt: ${effectiveRoot}`);
+
 
   nuxt = await loadNuxt({
-    cwd: effectiveRoot, // Use the explicitly defined Fremux project root
+    cwd: effectiveRoot, // Usar o effectiveRoot determinado dinamicamente
     ready: false,
     dev: false,
     overrides: {
@@ -147,6 +151,7 @@ function mergeViteConfig(
   storybookConfig: ViteConfig,
   nuxtConfig: ViteConfig,
   nuxt: Nuxt,
+  projectRootPath: string // Adicionado novo parâmetro projectRootPath
 ): ViteConfig {
   const extendedConfig: ViteConfig = mergeConfig(nuxtConfig, storybookConfig)
 
@@ -175,18 +180,22 @@ function mergeViteConfig(
   extendedConfig.optimizeDeps.include.push(
     // Add lodash/kebabCase, since it is still a cjs module
     // Imported in https://github.com/storybookjs/storybook/blob/480359d5e340d97476131781c69b4b5e3b724f57/code/renderers/vue3/src/docs/sourceDecorator.ts#L18
-    '@nuxtjs/storybook > @storybook-vue/nuxt > @storybook/vue3 > lodash/kebabCase',
+    'lodash', // Ensure lodash itself is optimized
+    'lodash/kebabCase'
+    // Removed '@nuxt/icon' from here as it didn't solve the warning
   )
 
-  // Determine the Fremux workspace root explicitly
-  const fremuxWorkspaceRoot = resolve(packageDir, '../../../../'); // Adjust based on actual structure if XStoryBook is deeper
+  // REMOVIDA TODA A SEÇÃO DE ALIAS PARA @nuxt/icon E fremuxWorkspaceRoot
+  // const fremuxWorkspaceRoot = resolve(packageDir, '../../../../');
+  // const nuxtIconPathForAlias = join(fremuxWorkspaceRoot, 'node_modules', '@nuxt/icon');
+  // let nuxtIconAlias = { '@nuxt/icon': nuxtIconPathForAlias };
+  // console.log(`[Storybook Addon] Alias for @nuxt/icon will be configured to: ${nuxtIconPathForAlias}`);
 
   return mergeConfig(extendedConfig, {
     // build: { rollupOptions: { external: ['vue', 'vue-demi'] } },
     define: {
       'import.meta.client': 'true',
     },
-
     plugins: [
       replace({
         values: {
@@ -197,13 +206,18 @@ function mergeViteConfig(
       }),
       nuxtRuntimeConfigPlugin(nuxt.options.runtimeConfig),
     ],
+    resolve: { // Added resolve configuration
+      alias: {
+        // REMOVIDO: ...nuxtIconAlias, // Spread the alias for @nuxt/icon
+      }
+    },
     server: {
       cors: true,
       proxy: {
         ...getPreviewProxy(),
         ...getNuxtProxyConfig(nuxt).proxy,
       },
-      fs: { allow: [fremuxWorkspaceRoot, ...dirs] }, // Use the explicit Fremux workspace root
+      fs: { allow: [projectRootPath, ...dirs] }, // Usar o projectRootPath determinado dinamicamente
     },
     envPrefix: ['NUXT_'],
   })
@@ -328,11 +342,17 @@ export const viteFinal: StorybookConfig['viteFinal'] = async (
   }
 
   const storybookViteConfig = await getStorybookViteConfig(config, options)
+
+  // Determinar a raiz do projeto de forma dinâmica
+  const projectRoot = searchForWorkspaceRoot(options.configDir || process.cwd());
+  console.log(`[Storybook Addon] Determined project root: ${projectRoot}`);
+
   const { viteConfig: nuxtConfig, nuxt } = await loadNuxtViteConfig(
-    storybookViteConfig.root,
+    projectRoot // Passar o projectRoot determinado dinamicamente
   )
 
-  const finalViteConfig = mergeViteConfig(storybookViteConfig, nuxtConfig, nuxt)
+  // Passar projectRoot para mergeViteConfig
+  const finalViteConfig = mergeViteConfig(storybookViteConfig, nuxtConfig, nuxt, projectRoot)
 
   if (options.outputDir != null) {
     // Write all vite configs to logs
