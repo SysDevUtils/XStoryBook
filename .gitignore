@@ -25,3 +25,6 @@ tsconfig.vitest-temp.json
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Submodule folder (should not track content here, only the submodule link)
+/private/
