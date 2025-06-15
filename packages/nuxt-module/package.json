@@ -1,7 +1,7 @@
 {
-  "name": "@nuxtjs/storybook",
-  "version": "8.3.5",
-  "description": "Storybook module for Nuxt",
+  "name": "@fremux/nuxtjs-storybook",
+  "version": "9.0.9",
+  "description": "Storybook module for Nuxt - Fremux Fork with v9 support",
   "license": "MIT",
   "homepage": "https://storybook.nuxtjs.org",
   "repository": {
@@ -46,7 +46,7 @@
   "dependencies": {
     "@nuxt/devtools-kit": "^2.0.0",
     "@nuxt/kit": "^3.12.0",
-    "@storybook-vue/nuxt": "workspace:*",
+    "@fremux/storybook-vue-nuxt": "workspace:*",
     "chalk": "^5.0.0",
     "consola": "^3.2.3",
     "defu": "^6.1.4",
@@ -56,10 +56,10 @@
   "devDependencies": {
     "@nuxt/module-builder": "1.0.0",
     "vite": "6.2.5",
-    "storybook": "9.0.5",
+    "storybook": "9.0.9",
     "unbuild": "3.5.0"
   },
   "peerDependencies": {
-    "storybook": "9.0.5"
+    "storybook": "9.0.9"
   }
 }
