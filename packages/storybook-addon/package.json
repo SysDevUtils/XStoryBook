@@ -1,7 +1,7 @@
 {
-  "name": "@fremux/storybook-vue-nuxt",
+  "name": "@xstorybook/vue-nuxt-preset",
   "version": "9.0.9",
-  "description": "Storybook addon for Nuxt and Vite - Fremux Fork with v9 support",
+  "description": "XStoryBook preset for Nuxt and Vite - v9 support",
   "license": "MIT",
   "homepage": "https://github.com/SysDevUtils/XStoryBook",
   "repository": {
@@ -17,7 +17,6 @@
     "nuxt",
     "vite",
     "vue3",
-    "fremux",
     "xstorybook"
   ],
   "author": {

@@ -1,10 +1,10 @@
 ![XStoryBook Nuxt Module](https://raw.githubusercontent.com/SysDevUtils/XStoryBook/main/assets/xstorybook-banner.png)
 
-# XStoryBook Nuxt Module (@fremux/nuxtjs-storybook)
+# XStoryBook Nuxt Module (@xstorybook/nuxt-module)
 
 Integra o [XStoryBook](https://github.com/SysDevUtils/XStoryBook) (um fork do Storybook focado em Nuxt 3.16+ e Storybook v9.0.9+) em sua aplicação [Nuxt](https://nuxt.com).
 
-Este módulo é parte do projeto XStoryBook, que visa fornecer uma base estável para Storybook v9+ no Nuxt e servir como fundação para o addon `FremUX XMaker`.
+Este módulo é parte do projeto XStoryBook, que visa fornecer uma base estável para Storybook v9+ no Nuxt e servir como fundação para o addon `@xstorybook/xmaker-addon`.
 
 ## Instalando
 
@@ -12,13 +12,13 @@ Use seu gerenciador de pacotes preferido:
 
 ```bash
 # pnpm
-pnpm add -D @fremux/nuxtjs-storybook @fremux/storybook-vue-nuxt storybook
+pnpm add -D @xstorybook/nuxt-module @xstorybook/vue-nuxt-preset storybook
 
 # yarn
-yarn add -D @fremux/nuxtjs-storybook @fremux/storybook-vue-nuxt storybook
+yarn add -D @xstorybook/nuxt-module @xstorybook/vue-nuxt-preset storybook
 
 # npm
-npm install -D @fremux/nuxtjs-storybook @fremux/storybook-vue-nuxt storybook
+npm install -D @xstorybook/nuxt-module @xstorybook/vue-nuxt-preset storybook
 ```
 
 Atualize seu `nuxt.config.ts`:
@@ -26,7 +26,7 @@ Atualize seu `nuxt.config.ts`:
 ```ts
 export default defineNuxtConfig({
   modules: [
-    '@fremux/nuxtjs-storybook',
+    '@xstorybook/nuxt-module',
   ],
   storybook: {
     // url: 'http://localhost:6006', // Opcional: URL onde o Storybook será servido
@@ -41,7 +41,7 @@ Configure seu ambiente Storybook criando um diretório `.storybook` na raiz do s
 
 **`.storybook/main.ts`**:
 ```ts
-import type { StorybookConfig } from '@fremux/storybook-vue-nuxt';
+import type { StorybookConfig } from '@xstorybook/vue-nuxt-preset';
 
 const config: StorybookConfig = {
   stories: [
@@ -51,9 +51,10 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-essentials',
     // Adicione outros addons do Storybook v9 aqui
+    '@xstorybook/xmaker-addon', // Exemplo: se estiver usando o XMaker
   ],
   framework: {
-    name: '@fremux/storybook-vue-nuxt',
+    name: '@xstorybook/vue-nuxt-preset',
     options: {},
   },
   core: {
@@ -90,8 +91,8 @@ Então rode `pnpm dev` (ou `yarn dev`/`npm run dev`) para iniciar seu servidor N
 
 ✨ **Compatibilidade com Storybook v9.0.9+** e Nuxt 3.16+
 ⚙️ Integração aprimorada com o ecossistema Nuxt.
-🛠️ Base para o addon `@fremux/storybook-xmaker`.
-🚀 Focado nas necessidades do FremUX e da comunidade Nuxt/Storybook v9.
+🛠️ Base para o addon `@xstorybook/xmaker-addon`.
+🚀 Focado nas necessidades da comunidade Nuxt/Storybook v9.
 
 ## Contribuindo
 
@@ -101,7 +102,7 @@ Contribuições para o XStoryBook são bem-vindas!
 2.  Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
 3.  Instale as dependências com `pnpm install`.
 4.  Rode `pnpm dev:prepare` (na raiz do monorepo XStoryBook) para preparar os pacotes.
-5.  Faça suas alterações no pacote `@fremux/nuxtjs-storybook`.
+5.  Faça suas alterações no pacote `@xstorybook/nuxt-module`.
 6.  Rode `pnpm lint` (na raiz) para verificar se não há problemas. Adicione testes se aplicável.
 7.  Faça commit de suas alterações (`git commit -am 'feat: Adiciona nova feature'`).
 8.  Envie para a branch (`git push origin feature/nova-feature`).
@@ -113,9 +114,9 @@ Este projeto é licenciado sob a [Licença MIT](https://github.com/SysDevUtils/X
 
 ## Contato
 
-Para questões relacionadas ao XStoryBook ou FremUX:
+Para questões relacionadas ao XStoryBook:
 
-🔖 Email: contact@fremux.com
+🔖 Email: contact@fremux.com (para questões legadas ou se não houver resposta no GitHub)
 🌐 GitHub Issues: [SysDevUtils/XStoryBook/issues](https://github.com/SysDevUtils/XStoryBook/issues)
 
 ## Agradecimentos

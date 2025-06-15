@@ -1,7 +1,7 @@
 {
-  "name": "@fremux/nuxtjs-storybook",
+  "name": "@xstorybook/nuxt-module",
   "version": "9.0.9",
-  "description": "Storybook module for Nuxt - Fremux Fork with v9 support",
+  "description": "XStoryBook module for Nuxt - v9 support",
   "license": "MIT",
   "homepage": "https://github.com/SysDevUtils/XStoryBook",
   "repository": {
@@ -17,7 +17,6 @@
     "nuxt",
     "vite",
     "vue3",
-    "fremux",
     "xstorybook"
   ],
   "author": {
@@ -48,7 +47,7 @@
   "dependencies": {
     "@nuxt/devtools-kit": "^2.0.0",
     "@nuxt/kit": "^3.12.0",
-    "@fremux/storybook-vue-nuxt": "workspace:*",
+    "@xstorybook/vue-nuxt-preset": "workspace:*",
     "chalk": "^5.0.0",
     "consola": "^3.2.3",
     "defu": "^6.1.4",
