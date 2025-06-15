@@ -2,7 +2,7 @@
  * XMaker Addon para o Storybook
  * Ferramenta visual para criação de componentes no padrão Matrioska do FremUX
  */
-import { addons, types } from '@storybook/manager-api';
+import { addons, types } from 'storybook/manager-api';
 import { ADDON_ID, PANEL_ID } from './constants';
 import { XMakerPanel } from './panels/XMakerPanel';
 

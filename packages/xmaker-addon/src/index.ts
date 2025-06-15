@@ -2,7 +2,7 @@
  * Ponto de entrada principal do XMaker Addon
  * Define os decoradores, contexto e configurações para o Storybook
  */
-import { makeDecorator } from '@storybook/preview-api';
+import { makeDecorator } from 'storybook/preview-api';
 import { PARAM_KEY } from './constants';
 
 // Interface para as configurações do XMaker

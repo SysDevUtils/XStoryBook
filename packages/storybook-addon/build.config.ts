@@ -21,7 +21,7 @@ export default defineBuildConfig({
   dependencies: [
     'vue-router',
     '@storybook/builder-vite',
-    '@storybook/vue3',
+    '@storybook/vue3-vite',
     '@storybook/vue3-vite',
   ],
   externals: [

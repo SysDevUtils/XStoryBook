@@ -1,7 +1,7 @@
 /**
  * Preset do XMaker para o Storybook
  */
-import type { PresetProperty } from '@storybook/types';
+import type { PresetProperty } from 'storybook/internal/types';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
