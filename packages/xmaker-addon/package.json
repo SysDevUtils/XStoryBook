@@ -1,9 +1,9 @@
 {
-  "name": "@fremux/storybook-xmaker",
+  "name": "@xstorybook/xmaker-addon",
   "version": "0.1.0",
-  "description": "Addon para criação visual de componentes FremUX utilizando o padrão Matrioska",
+  "description": "Visual component builder for Storybook, integrated with XStoryBook.",
   "license": "MIT",
-  "homepage": "https://github.com/SysDevUtils/XStoryBook/tree/main/packages/xmaker-addon",
+  "homepage": "https://github.com/SysDevUtils/XStoryBook/tree/main/packages/xmaker-addon#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SysDevUtils/XStoryBook.git",
@@ -13,13 +13,13 @@
     "url": "https://github.com/SysDevUtils/XStoryBook/issues"
   },
   "keywords": [
-    "storybook",
-    "nuxt",
+    "storybook-addon",
+    "xstorybook",
     "fremux",
-    "xmaker",
-    "component-builder",
-    "visual-editor",
-    "xstorybook"
+    "visual-builder",
+    "component-generator",
+    "nuxt",
+    "vue"
   ],
   "author": {
     "name": "FremUX",

@@ -1,145 +1,120 @@
-# FremUX XMaker - Addon para Storybook
+# XStoryBook XMaker Addon
 
-> Criador visual de componentes para o framework FremUX seguindo o padrão Matrioska
+> Visual component builder for Storybook, enabling rapid UI development and prototyping within the XStoryBook ecosystem.
 
-## 📋 Visão Geral
+## 📋 Overview
 
-O FremUX XMaker é um addon para Storybook que permite criar, visualizar e testar componentes no padrão Matrioska do FremUX. Esta ferramenta fornece uma interface visual para definir componentes, suas propriedades, eventos, slots e subcomponentes, gerando automaticamente o código necessário para integração no seu projeto FremUX.
+The XStoryBook XMaker is a powerful addon for Storybook designed to streamline the creation, visualization, and testing of UI components. It provides an intuitive visual interface for defining components, their properties, events, slots, and even nested subcomponents. XMaker automatically generates the necessary code, helping you build consistent and robust UIs faster.
 
-## ✨ Funcionalidades
+While initially conceived for the FremUX framework and its Matrioska pattern, XMaker is evolving to be a versatile tool for any Storybook and Nuxt (Vue) based project aiming for efficient component-driven development.
 
-- 🧩 **Criação visual de componentes** - Interface interativa para definir componentes
-- 📦 **Suporte ao padrão Matrioska** - Estruturação automática seguindo o padrão encapsulado
-- 🔄 **Geração de código** - Produção automática de arquivos Vue, tipos e stories
-- 📝 **Templates pré-configurados** - Modelos para diferentes tipos de componentes (básico, form, layout, etc.)
-- 🧪 **Teste em tempo real** - Visualização instantânea no Storybook
+## ✨ Features
 
-## 💻 Instalação
+- 🧩 **Visual Component Creation**: Interactive interface to define component structure and properties.
+- 🔄 **Code Generation**: Automatic generation of Vue component files, type definitions, and Storybook stories.
+- 🎨 **Template-Based**: Start with pre-configured templates for common component types or create your own.
+- ⚡ **Real-time Previews**: Instantly see your component in Storybook as you build it.
+- 🛠️ **XStoryBook Integration**: Seamlessly works within the XStoryBook environment.
+- 📦 **(Future) Matrioska Pattern Support**: Specific support for advanced component encapsulation patterns.
+
+## 💻 Installation
 
 ```bash
 # NPM
-npm install --save-dev @fremux/storybook-xmaker
+npm install --save-dev @xstorybook/xmaker-addon
 
 # PNPM
-pnpm add -D @fremux/storybook-xmaker
+pnpm add -D @xstorybook/xmaker-addon
 ```
 
-## ⚙️ Configuração
+## ⚙️ Configuration
 
-Adicione o addon à sua configuração do Storybook em `.storybook/main.ts`:
+Add the addon to your Storybook configuration in `.storybook/main.ts` (or `.storybook/main.js`):
 
 ```ts
-import type { StorybookConfig } from '@storybook/vue3-vite';
+import type { StorybookConfig } from '@storybook/vue3-vite'; // Or your specific framework
 
 const config: StorybookConfig = {
-  // Configurações existentes
-  stories: ['../components/**/*.stories.@(js|jsx|ts|tsx)'],
+  // ... existing configurations
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'], // Adjust to your stories path
   
   addons: [
-    // Outros addons
-    '@fremux/storybook-xmaker'
+    // ... other addons
+    '@xstorybook/xmaker-addon',
+    // Ensure other essential XStoryBook addons are listed, e.g., '@xstorybook/nuxt-module'
   ],
+  // ... other configurations like framework, core, docs, etc.
 };
 
 export default config;
 ```
 
-## 🚀 Uso Básico
+## 🚀 Basic Usage
 
-### 1. Acesse o painel XMaker no Storybook
+1.  **Access the XMaker Panel**: Once Storybook is running, you'll find the "XMaker" panel in the Storybook UI.
+2.  **Define Your Component**: Use the visual editor to:
+    *   Set the component name and description.
+    *   Choose a base template (if available).
+    *   Add and configure props (name, type, default value, controls).
+    *   Define emitted events.
+    *   Specify available slots.
+3.  **Generate and Preview**: 
+    *   See a live preview of your component.
+    *   Generate the component code (e.g., `.vue` file, story file).
+    *   Export or save the generated files to your project.
 
-Após iniciar o Storybook, você verá um novo painel chamado "FremUX XMaker" no painel lateral.
+## 📚 (Future) Matrioska Pattern
 
-### 2. Configure seu componente
+Support for the Matrioska pattern (an advanced component encapsulation strategy) is planned for future versions, allowing for highly organized and maintainable component structures, especially in large-scale applications.
 
-- Defina o nome, descrição e prefixo
-- Escolha se seguirá o padrão Matrioska
-- Selecione um template básico
+## 🛠️ API & Customization
 
-### 3. Adicione props, eventos e slots
+### Story Parameters
 
-Use as abas para configurar:
-- Props (tipo, valor padrão, validações)
-- Eventos emitidos pelo componente
-- Slots disponíveis
-
-### 4. Visualize e gere seu componente
-
-- Pré-visualize o componente no Storybook
-- Gere o código completo em Vue
-- Exporte para o projeto FremUX
-
-## 📚 Padrão Matrioska
-
-O FremUX implementa o padrão Matrioska para encapsulamento de componentes:
-
-```
-components/
-├── XForm.vue                # Componente proxy
-└── XForm/
-    ├── XForm.vue            # Implementação principal
-    ├── XFormField.vue       # Subcomponente
-    └── fields/              # Subcomponentes especializados
-        ├── XFormText.vue
-        └── XFormSelect.vue
-```
-
-O XMaker gerará automaticamente esta estrutura e os arquivos necessários quando você escolher a opção Matrioska.
-
-## 🛠️ API
-
-### Parâmetros em Stories
-
-Você pode configurar o XMaker em suas stories:
+You can provide initial configurations for XMaker directly in your component stories:
 
 ```ts
-export default {
-  title: 'Components/XMeuComponente',
-  component: XMeuComponente,
+// Example: src/components/MyButton.stories.ts
+import type { Meta, StoryObj } from '@storybook/vue3';
+import MyButton from './MyButton.vue';
+
+const meta: Meta<typeof MyButton> = {
+  title: 'Components/MyButton',
+  component: MyButton,
   parameters: {
     xmaker: {
-      matrioska: true,
-      prefix: 'X',
-      props: [/* definições de props */],
-      events: [/* eventos */],
-      slots: [/* slots */],
-      subcomponents: [/* subcomponentes */]
-    }
-  }
+      // Initial XMaker settings for this component
+      // e.g., defaultProps: { label: 'Click Me' }
+    },
+  },
+  // argTypes for props can also be defined here
+};
+
+export default meta;
+
+type Story = StoryObj<typeof MyButton>;
+
+export const Default: Story = {
+  args: {
+    label: 'Button',
+  },
 };
 ```
 
-## 🔄 Integração com outros addons
+### Extensibility
 
-O XMaker trabalha perfeitamente com outros addons do Storybook:
+Future versions will allow for custom templates and deeper integration hooks.
 
-- **Controls**: Teste suas props em tempo real
-- **Actions**: Capture e teste eventos emitidos
-- **Docs**: Documentação automática gerada
+## 🤝 Contributing
 
-## 🎨 Estilos e Temas
+Contributions to XStoryBook and the XMaker addon are welcome! Please refer to the main `XStoryBook` repository for contribution guidelines, issue tracking, and pull requests.
 
-O XMaker respeita o tema do Storybook e também permite customização de componentes gerados através de templates personalizados.
+- **Issues**: [XStoryBook Issues](https://github.com/SysDevUtils/XStoryBook/issues)
+- **Discussions**: [XStoryBook Discussions](https://github.com/SysDevUtils/XStoryBook/discussions)
 
-## 🔌 Extensibilidade
+## 📄 License
 
-Você pode criar seus próprios templates para casos de uso específicos:
+MIT - See the [LICENSE](https://github.com/SysDevUtils/XStoryBook/blob/main/LICENSE) file in the main XStoryBook repository.
 
-```ts
-// .storybook/xmaker-templates.ts
-import { addTemplate } from '@fremux/storybook-xmaker';
-
-addTemplate('meu-template', {
-  template: `<div class="meu-componente">...</div>`,
-  script: `export default { ... }`,
-  style: `.meu-componente { ... }`
-});
-```
-
-## 📦 Contribuições
-
-Contribuições são bem-vindas! Por favor, crie um issue ou pull request.
-
-## 📄 Licença
-
-MIT
+---
+*This README is for the `@xstorybook/xmaker-addon` package. For the main XStoryBook project, please see the [XStoryBook README](https://github.com/SysDevUtils/XStoryBook#readme).*
