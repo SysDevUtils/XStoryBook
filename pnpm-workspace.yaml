@@ -1,7 +1,4 @@
 packages:
-  - docs
-  - playground
-  - examples/**
   - packages/**
 
 onlyBuiltDependencies:

@@ -3,24 +3,26 @@
   "version": "9.0.9",
   "description": "Storybook module for Nuxt - Fremux Fork with v9 support",
   "license": "MIT",
-  "homepage": "https://storybook.nuxtjs.org",
+  "homepage": "https://github.com/SysDevUtils/XStoryBook",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nuxt-modules/storybook.git",
+    "url": "git+https://github.com/SysDevUtils/XStoryBook.git",
     "directory": "packages/nuxt-module"
   },
   "bugs": {
-    "url": "https://github.com/nuxt-modules/storybook/issues"
+    "url": "https://github.com/SysDevUtils/XStoryBook/issues"
   },
   "keywords": [
     "storybook",
     "nuxt",
     "vite",
-    "vue3"
+    "vue3",
+    "fremux",
+    "xstorybook"
   ],
   "author": {
-    "name": "ChakAs3",
-    "email": "javachakir@gmail.com"
+    "name": "FremUX",
+    "email": "contact@fremux.com"
   },
   "type": "module",
   "exports": {
