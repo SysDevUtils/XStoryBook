@@ -1,70 +1,125 @@
-![Nuxt Storybook](https://github.com/nuxt-modules/storybook/assets/904724/0396b16c-be9b-4b0d-83b5-5e35dd8298df)
+![XStoryBook Nuxt Module](https://raw.githubusercontent.com/SysDevUtils/XStoryBook/main/assets/xstorybook-banner.png)
 
-# Nuxt Storybook
+# XStoryBook Nuxt Module (@fremux/nuxtjs-storybook)
 
-Integrate [Storybook](http://storybook.js.org) into your [Nuxt](https://nuxt.com) application.
+Integra o [XStoryBook](https://github.com/SysDevUtils/XStoryBook) (um fork do Storybook focado em Nuxt 3.16+ e Storybook v9.0.9+) em sua aplicação [Nuxt](https://nuxt.com).
 
-## Installing
+Este módulo é parte do projeto XStoryBook, que visa fornecer uma base estável para Storybook v9+ no Nuxt e servir como fundação para o addon `FremUX XMaker`.
 
+## Instalando
+
+Use seu gerenciador de pacotes preferido:
+
+```bash
+# pnpm
+pnpm add -D @fremux/nuxtjs-storybook @fremux/storybook-vue-nuxt storybook
+
+# yarn
+yarn add -D @fremux/nuxtjs-storybook @fremux/storybook-vue-nuxt storybook
+
+# npm
+npm install -D @fremux/nuxtjs-storybook @fremux/storybook-vue-nuxt storybook
 ```
-npx nuxi@latest module add storybook
-```
 
-Update your `nuxt.config`:
+Atualize seu `nuxt.config.ts`:
 
 ```ts
+export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/storybook',
+    '@fremux/nuxtjs-storybook',
   ],
   storybook: {
-    url: 'http://localhost:6006',
-    storybookRoute: '/__storybook__',
-    port: 6006,
+    // url: 'http://localhost:6006', // Opcional: URL onde o Storybook será servido
+    // port: 6006, // Opcional: Porta para o Storybook
+    // storybookRoute: '/__storybook__', // Opcional: Rota para o Storybook UI no app Nuxt
+    // autoStart: false, // Opcional: Se o Storybook deve iniciar com o Nuxt
   },
+})
 ```
 
-Then run `pnpm dev` to start your Nuxt server.
+Configure seu ambiente Storybook criando um diretório `.storybook` na raiz do seu projeto com os seguintes arquivos:
 
-## Demo
+**`.storybook/main.ts`**:
+```ts
+import type { StorybookConfig } from '@fremux/storybook-vue-nuxt';
 
-https://github.com/storybook-vue/nuxt-storybook-module-demo
+const config: StorybookConfig = {
+  stories: [
+    '../components/**/*.stories.@(js|jsx|mjs|ts|tsx|vue)',
+    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx|vue)',
+  ],
+  addons: [
+    '@storybook/addon-essentials',
+    // Adicione outros addons do Storybook v9 aqui
+  ],
+  framework: {
+    name: '@fremux/storybook-vue-nuxt',
+    options: {},
+  },
+  core: {
+    disableTelemetry: true,
+  },
+  docs: {
+    autodocs: 'tag',
+  },
+};
+export default config;
+```
 
-## Features
+**`.storybook/preview.ts`**:
+```ts
+import type { Preview } from '@storybook/vue3';
 
-👌 Zero configuration to start (see video)
+const preview: Preview = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
+export default preview;
+```
 
-🪄 Access Storybook Terminal
+Então rode `pnpm dev` (ou `yarn dev`/`npm run dev`) para iniciar seu servidor Nuxt. O Storybook geralmente estará disponível em `http://localhost:6006`.
 
-🎨 Devtools tab with Storybook app
+## Features do XStoryBook Nuxt Module
 
-⚙️ Reference your Storybook config in your app
+✨ **Compatibilidade com Storybook v9.0.9+** e Nuxt 3.16+
+⚙️ Integração aprimorada com o ecossistema Nuxt.
+🛠️ Base para o addon `@fremux/storybook-xmaker`.
+🚀 Focado nas necessidades do FremUX e da comunidade Nuxt/Storybook v9.
 
-📦 Extendable by Nuxt modules
+## Contribuindo
 
-🚀 Supports Nuxt 3 / Storybook 8
+Contribuições para o XStoryBook são bem-vindas!
 
-## Nuxt 2
+1.  Faça um fork do repositório [SysDevUtils/XStoryBook](https://github.com/SysDevUtils/XStoryBook).
+2.  Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
+3.  Instale as dependências com `pnpm install`.
+4.  Rode `pnpm dev:prepare` (na raiz do monorepo XStoryBook) para preparar os pacotes.
+5.  Faça suas alterações no pacote `@fremux/nuxtjs-storybook`.
+6.  Rode `pnpm lint` (na raiz) para verificar se não há problemas. Adicione testes se aplicável.
+7.  Faça commit de suas alterações (`git commit -am 'feat: Adiciona nova feature'`).
+8.  Envie para a branch (`git push origin feature/nova-feature`).
+9.  Abra um Pull Request.
 
-Nuxt 2 is supported with Storybook v6, you can check legacy code on the v4 branch.
+## Licença
 
-## Contributing
+Este projeto é licenciado sob a [Licença MIT](https://github.com/SysDevUtils/XStoryBook/blob/main/LICENSE).
 
-1. Install dependencies with `pnpm`.
-2. Run `pnpm dev:prepare` to generate stubbed `dist` directory.
-3. Make your changes.
-4. Run `pnpm lint` to verify that there are no issues (consider adding tests).
-5. Submit a PR.
+## Contato
 
-## License
+Para questões relacionadas ao XStoryBook ou FremUX:
 
-This repository is licensed under the [MIT License](LICENSE). Feel free to use the code and modify it according to your needs.
+🔖 Email: contact@fremux.com
+🌐 GitHub Issues: [SysDevUtils/XStoryBook/issues](https://github.com/SysDevUtils/XStoryBook/issues)
 
-## Contacts :
+## Agradecimentos
 
-🔖 Mail: contact@fremux.com
+Este projeto é um fork de [@nuxtjs/storybook](https://github.com/nuxt-modules/storybook) e agradece a todos os seus contribuidores originais.
 
-## Sponsors
-
-<a href="https://www.chromatic.com/"><img src="https://user-images.githubusercontent.com/321738/84662277-e3db4f80-af1b-11ea-88f5-91d67a5e59f6.png" width="153" height="30" alt="Chromatic" /></a>
-
-Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testing platform that helps us review UI changes and catch visual regressions.
+Agradecimentos também a [Chromatic](https://www.chromatic.com/) por fornecer a plataforma de testes visuais.
